@@ -17,13 +17,13 @@ namespace Cw2
             var set = new HashSet<Studnet>();
 
             // 1.1 Przyjmowanie parametrów: 
-            var input = args.Length < 1 ? args[0] : @"C:\Users\kacpe\source\repos\Cw2\Cw2\Dane\dane.csv";
-            var output = args.Length < 2 ? args[1] : @"C:\Users\kacpe\source\repos\Cw2\Cw2\Dane\Result.txt";
-            var dataType = args.Length < 3 ? args[2] : "xml";
+            var input = args.Length > 0 ? args[0] : @"Files\dane.csv";
+            var output = args.Length > 1 ? args[1] : @"Files\Result.xml";
+            var dataType = args.Length > 2 ? args[2] : "xml";
 
-            //var input = @"C:\Users\kacpe\source\repos\Cw2\Cw2\Dane\dane.csv";
-            //var output = @"C:\Users\kacpe\source\repos\Cw2\Cw2\Dane\Result.txt";
-            //var dataType = "xml";
+            //var input = @"C:\Users\kacpe\Desktop\Programowanie\Polsko-Japońska\ABD\Cw2\Cw2\Files\dane.csv";
+            //var output = @"C:\Users\kacpe\Desktop\Programowanie\Polsko-Japońska\ABD\Cw2\Cw2\Files\Result.json";
+            //var dataType = "json";
 
             //1.2 Obsługa błedów:
             try
@@ -122,10 +122,10 @@ namespace Cw2
             {
                 //XML
                 FileStream writer = new FileStream(output, FileMode.Create);
-                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                ns.Add("", "");
+                XmlSerializerNamespaces xml = new XmlSerializerNamespaces();
+                xml.Add("", "");
                 XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia));
-                serializer.Serialize(writer, uni, ns);
+                serializer.Serialize(writer, uni, xml);
             }
             if (dataType == "json")
             {
@@ -137,12 +137,6 @@ namespace Cw2
                 var jsonFile = JsonSerializer.Serialize<Uczelnia>(uni,options);
                 File.WriteAllText(output, jsonFile);
             }
-
-
-            
-
-            
-
         }
     }
 }
